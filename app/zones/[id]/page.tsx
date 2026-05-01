@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { calculateCondition } from "@/lib/condition";
 import ComponentCard from "@/components/ComponentCard";
 import AddComponentForm from "@/components/AddComponentForm";
+import EditZoneName from "@/components/EditZoneName";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,7 @@ export default async function ZonePage({
         >
           ← Dashboard
         </Link>
-        <h1 className="text-zinc-100 text-2xl font-semibold mt-3">{zone.name}</h1>
+        <EditZoneName id={zone.id} name={zone.name} />
         <p className="text-zinc-500 text-sm mt-1">
           {components.length} component{components.length !== 1 ? "s" : ""}
         </p>
