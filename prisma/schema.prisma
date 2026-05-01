@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Zone {
+  id         String      @id @default(cuid())
+  name       String
+  createdAt  DateTime    @default(now())
+  components Component[]
+}
+
+model Component {
+  id             String              @id @default(cuid())
+  name           String
+  zoneId         String
+  zone           Zone                @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  decayRate      Float
+  lastCondition  Float               @default(100)
+  lastServicedAt DateTime            @default(now())
+  createdAt      DateTime            @default(now())
+  actions        MaintenanceAction[]
+  logs           LogEntry[]
+}
+
+model MaintenanceAction {
+  id              String     @id @default(cuid())
+  name            String
+  componentId     String
+  component       Component  @relation(fields: [componentId], references: [id], onDelete: Cascade)
+  conditionEffect Float
+  logs            LogEntry[]
+}
+
+model LogEntry {
+  id                 String            @id @default(cuid())
+  componentId        String
+  component          Component         @relation(fields: [componentId], references: [id])
+  actionId           String
+  action             MaintenanceAction @relation(fields: [actionId], references: [id])
+  note               String?
+  resultingCondition Float
+  performedAt        DateTime          @default(now())
+}
