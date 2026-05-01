@@ -38,29 +38,31 @@ export default function AddZoneForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-zinc-900 border border-zinc-700 rounded-lg p-5 flex gap-3"
+      className="bg-zinc-900 border border-zinc-700 rounded-lg p-5 flex flex-col gap-3"
     >
       <input
         autoFocus
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Zone name (e.g. Balcony)"
-        className="flex-1 bg-zinc-800 border border-zinc-700 text-zinc-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-zinc-500 placeholder:text-zinc-600"
+        className="w-full bg-zinc-800 border border-zinc-700 text-zinc-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-zinc-500 placeholder:text-zinc-600"
       />
-      <button
-        type="submit"
-        disabled={saving || !name.trim()}
-        className="bg-zinc-100 hover:bg-white text-zinc-900 rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40 transition-colors"
-      >
-        {saving ? "Adding…" : "Add"}
-      </button>
-      <button
-        type="button"
-        onClick={() => setOpen(false)}
-        className="text-zinc-500 hover:text-zinc-300 px-2 text-sm transition-colors"
-      >
-        Cancel
-      </button>
+      <div className="flex gap-2">
+        <button
+          type="submit"
+          disabled={saving || !name.trim()}
+          className="bg-zinc-100 hover:bg-white text-zinc-900 rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40 transition-colors"
+        >
+          {saving ? "Adding…" : "Add"}
+        </button>
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          className="text-zinc-500 hover:text-zinc-300 px-2 text-sm transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }
